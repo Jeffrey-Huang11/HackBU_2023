@@ -5,7 +5,6 @@ from tld import get_tld
 from textblob import TextBlob
 import csv
 
-
 # gets all outgoing links on website with bs4
 def getData(url):
     result = requests.get(url)
@@ -18,30 +17,13 @@ def getData(url):
     for link in soup.find_all('a'):
         href = link.get('href')
         if href and "http" in href:
-            # print(href)
             len += 1
             if "https" in href: safe += 1
-
-    # print("Number of links: {0}".format(size))
-    # print("Number of safe links (https): {0}".format(safe))
-    # print("Number of non-safe links (http): {0}".format(size - safe)
 
     blob = TextBlob(text)
     sentiment = blob.sentiment.polarity
 
     return [len, safe, len - safe, text, sentiment]
-
-'''
-# gets all text on a website with bs4
-def getText(url):
-    result = requests.get(url)
-    soup = BeautifulSoup(result.text, "html.parser") # parses to html
-
-    # print(text)
-    # print("Number of words: {0}".format(len(text.split())))
-    return len(soup.get_text())
-
-'''
 
 # gets current status of website
 def getStatus(url):
@@ -57,25 +39,6 @@ def getStatus(url):
 def getTLD(url):
     # print(f"TLD: {tld}")
     return get_tld(url)
-
-'''
-# checks sentiment of a text using textblob
-def sentiment(url):
-    text = getText(url)
-    blob = TextBlob(text)
-    sentiment = blob.sentiment.polarity
-    
-    if sentiment > 0:
-        print("Positive")
-    elif sentiment == 0:
-        print("Neutral")
-    else:
-        print("Negative")
-
-   
-    return sentiment
-'''
-    
 
 def runAll(url):
     try: getStatus(url)
