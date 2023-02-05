@@ -122,6 +122,7 @@ with open(filename, 'r') as file:
     index = 0
     # iterate over the rows in the file
     for row in reader:
+        if index == 1000: break
         # add the value in the specified column to the list
         runAll(row[column_index])
         index += 1
